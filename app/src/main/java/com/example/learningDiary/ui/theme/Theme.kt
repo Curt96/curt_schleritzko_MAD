@@ -1,4 +1,4 @@
-package com.example.lectureexamples.ui.theme
+package com.example.learningDiary.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

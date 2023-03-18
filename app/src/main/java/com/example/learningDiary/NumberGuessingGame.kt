@@ -1,4 +1,4 @@
-package com.example.lectureexamples
+package com.example.learningDiary
 
 fun runGame(){
     val randomNumber = getRandomNumber()

@@ -1,4 +1,4 @@
-package com.example.lectureexamples.screens
+package com.example.learningDiary.screens
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

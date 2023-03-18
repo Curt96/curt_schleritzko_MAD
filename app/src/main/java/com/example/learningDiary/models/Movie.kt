@@ -1,4 +1,4 @@
-package com.example.lectureexamples.models
+package com.example.learningDiary.models
 
 data class Movie(
     val id: String,
