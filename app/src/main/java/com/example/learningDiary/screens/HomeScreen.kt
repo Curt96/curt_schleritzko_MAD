@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.Navigator
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.learningDiary.R
@@ -42,7 +43,7 @@ fun HomeScreen(navController: NavController) {
         color = MaterialTheme.colors.background
     ) {
         Column {
-            AppBar("Movie App")
+            AppBar("Movie App", navController)
             Greeting()
             Text(
                 style = MaterialTheme.typography.h6,
@@ -208,11 +209,8 @@ fun Greeting() {
     }
 }
 @Composable
-fun AppBar(title: String = "Movie List") {
+fun AppBar(title: String, navController: NavController) {
         TopAppBar(
-            //modifier = Modifier.padding(top = 24.dp),
-            //backgroundColor = Color.Magenta,
-            //elevation = 0.dp,
             title = {
                 Text(
                     title,
@@ -221,19 +219,19 @@ fun AppBar(title: String = "Movie List") {
 
             },
             actions = {
-                DropDownAction()
+                DropDownAction(navController)
 
             }
         )
     }
 @Composable
-fun DropDownAction() {
-    val context = LocalContext.current
+fun DropDownAction(navController: NavController) {
     val dropDown = remember {
         mutableStateOf(false)
     }
     IconButton(
-        onClick = { dropDown.value = !dropDown.value
+        onClick = {
+            dropDown.value = !dropDown.value
         }) {
         Icon(
             imageVector = Icons.Default.MoreVert,
@@ -242,7 +240,11 @@ fun DropDownAction() {
         )
     }
     DropdownMenu(expanded = dropDown.value, onDismissRequest = { dropDown.value = false }) {
-        DropdownMenuItem(onClick = {Toast.makeText(context, "Favorits Clicked", Toast.LENGTH_SHORT).show()}) {
+        DropdownMenuItem(onClick = {
+            navController.navigate("Favorites")
+            // Toast.makeText(context, "Favorits Clicked", Toast.LENGTH_SHORT).show()
+        }
+        ) {
             Icon(
                 imageVector = Icons.Default.Favorite,
                 contentDescription = "favorite_icon",
@@ -250,7 +252,7 @@ fun DropDownAction() {
             )
             Text(
                 text = "  Favorites",
-               // color = Color.Black
+                // color = Color.Black
             )
         }
     }

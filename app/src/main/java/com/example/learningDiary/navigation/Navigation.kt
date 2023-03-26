@@ -1,12 +1,14 @@
 package com.example.learningDiary.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.learningDiary.screens.DetailScreen
+import com.example.learningDiary.screens.FavoriteScreen
 import com.example.learningDiary.screens.HomeScreen
 
 @Composable
@@ -25,6 +27,9 @@ fun Navigation(){
             })
         ) {backStackEntry ->
             DetailScreen(navController, movieId = backStackEntry.arguments?.getString("movieId"))
+        }
+        composable(route = "favorites"){
+            FavoriteScreen(navController)
         }
     }
 }
