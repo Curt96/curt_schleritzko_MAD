@@ -1,6 +1,5 @@
 package com.example.learningDiary.screens
 
-import android.provider.MediaStore.Images
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -12,9 +11,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.learningDiary.Widgets.MovieRow
 import com.example.learningDiary.models.Movie
 import com.example.learningDiary.models.getMovies
-import java.lang.reflect.Modifier
 
 @Composable
 fun DetailScreen(navController: NavController, movieId: String?) {
@@ -24,20 +23,20 @@ fun DetailScreen(navController: NavController, movieId: String?) {
 
     Column {
         if (selectedMovie != null) {
-            AppBar(selectedMovie.title, navController)
+            com.example.learningDiary.Widgets.SimpleAppBar(selectedMovie.title, navController)
             MovieRow(movie = selectedMovie)
         }
         Divider(startIndent = 5.dp, thickness = 1.dp, color = Color.DarkGray)
         Text(text = "Movie Images", fontSize = MaterialTheme.typography.h2.fontSize, )
         if (selectedMovie != null) {
-            movieImage(images = selectedMovie.images )
+            MovieImage(images = selectedMovie.images )
         }
     }
     }
 }
 
 @Composable
-fun movieImage(images: List<String>) {
+fun MovieImage(images: List<String>) {
     LazyRow(contentPadding = PaddingValues(all = 5.dp)) {
         items(images) {
             image -> Card() {
