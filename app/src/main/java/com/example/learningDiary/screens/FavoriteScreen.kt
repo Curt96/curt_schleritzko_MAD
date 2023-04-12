@@ -20,8 +20,6 @@ fun FavoriteScreen(navController: NavHostController) {
         Text(modifier = Modifier,
             text = "Favorites",
             fontSize = MaterialTheme.typography.h2.fontSize)
-        MovieRow(movie = getMovies()[2])
-        Spacer(modifier = Modifier.size(3.dp))
-        MovieRow(movie = getMovies()[4])
     }
+    MyList()
 }

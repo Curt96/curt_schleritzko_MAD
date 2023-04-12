@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -44,18 +45,28 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}) {
                         contentDescription = "Movie Poster",
                         contentScale = ContentScale.Crop
                     )
-
+                    var favoriteSelected by remember {
+                        mutableStateOf(false)}
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(10.dp),
+                            .padding(10.dp)
+                            .clickable(onClick = { favoriteSelected = !favoriteSelected }),
                         contentAlignment = Alignment.TopEnd
                     ) {
-                        Icon(
-                            tint = MaterialTheme.colors.secondary,
-                            imageVector = Icons.Default.FavoriteBorder,
-                            contentDescription = "Add to favorites"
-                        )
+                        if (favoriteSelected) {
+                            Icon(
+                                tint = MaterialTheme.colors.secondary,
+                                imageVector = Icons.Default.Favorite,
+                                contentDescription = "Add to favorites",
+                            )
+                        } else {
+                            Icon(
+                                tint = MaterialTheme.colors.secondary,
+                                imageVector = Icons.Default.FavoriteBorder,
+                                contentDescription = "Add to favorites",
+                            )
+                        }
                     }
                 }
 
