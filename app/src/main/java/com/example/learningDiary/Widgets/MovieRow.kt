@@ -19,6 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.learningDiary.models.Movie
+import com.example.learningDiary.viewModels.MovieViewModel
 
 @Composable
 fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}) {
@@ -49,11 +50,14 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}) {
                         mutableStateOf(false)}
                     Box(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .padding(10.dp)
+                            .height(25.dp)
+                            .padding(2.dp)
+                            .fillMaxWidth()
                             .clickable(onClick = { favoriteSelected = !favoriteSelected }),
                         contentAlignment = Alignment.TopEnd
                     ) {
+                        val movieViewModel = MovieViewModel()
+                        movieViewModel.changeFavState(movie, favoriteSelected)
                         if (favoriteSelected) {
                             Icon(
                                 tint = MaterialTheme.colors.secondary,

@@ -16,12 +16,12 @@ public class MovieViewModel:ViewModel() {
     val favoritesList: List<Movie>
         get() = _favoritesList
 
-    fun findMovieById(movieId: String): Movie? {
-        return movieList.find { it.id == movieId }
-    }
     fun changeFavState(movie: Movie, favorite: Boolean) {
         movieList.find { it == movie }?.let { foundMovie ->
             foundMovie.isFavorite = favorite
         }
+    }
+    fun getFavorites(): List<Movie> {
+       return favoritesList
     }
 }
