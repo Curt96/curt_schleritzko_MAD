@@ -56,29 +56,26 @@ fun MovieRow(
                         contentDescription = "Movie Poster",
                         contentScale = ContentScale.Crop
                     )
-                    var favoriteSelected by remember {
-                        mutableStateOf(false)}
                     Box(
                         modifier = Modifier
                             .height(25.dp)
                             .padding(2.dp)
-                            .fillMaxWidth()
-                            .clickable(onClick = { favoriteSelected = !favoriteSelected }),
+                            .fillMaxWidth(),
                         contentAlignment = Alignment.TopEnd
                     ) {
-                        val movieViewModel = MovieViewModel()
-                        movieViewModel.changeFavState(movie, favoriteSelected)
-                        if (favoriteSelected) {
+                        IconButton(
+                            onClick = {
+                                onFavoriteChange(favorite.not()) }
+                        ) {
                             Icon(
                                 tint = MaterialTheme.colors.secondary,
-                                imageVector = Icons.Default.Favorite,
-                                contentDescription = "Add to favorites",
-                            )
-                        } else {
-                            Icon(
-                                tint = MaterialTheme.colors.secondary,
-                                imageVector = Icons.Default.FavoriteBorder,
-                                contentDescription = "Add to favorites",
+                                imageVector =
+                                if (favorite) {
+                                    Icons.Default.Favorite
+                                } else {
+                                    Icons.Default.FavoriteBorder
+                                },
+                                contentDescription = "Add to favorites"
                             )
                         }
                     }

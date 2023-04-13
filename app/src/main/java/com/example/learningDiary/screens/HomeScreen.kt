@@ -28,7 +28,16 @@ fun HomeScreen(navController: NavController, moviesViewModel: MovieViewModel = v
                 style = MaterialTheme.typography.h6,
                 text= "Movie List"
             )
-            MyList(navController, movies = moviesViewModel.movieList, onFavoriteMovie = {movie, favorite -> moviesViewModel.changeFavState(movie, favorite) })
+            MyList(
+                navController,
+                movieList = moviesViewModel.movieList,
+                onFavoriteMovie = { movie, favorite ->
+                    moviesViewModel.changeFavState(
+                        movie,
+                        favorite
+                    )
+                }
+            )
         }
         //MyList()
         //Greeting()

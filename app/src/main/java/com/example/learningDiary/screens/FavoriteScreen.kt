@@ -29,13 +29,12 @@ fun FavoriteScreen(navController: NavHostController, movieViewModel: MovieViewMo
             )
             MyList(
                 navController,
-                movies = movieViewModel.getFavorites(),
+                movieList = movieViewModel.getFavorites(),
                 onFavoriteMovie = { movie, favorite ->
-                    movieViewModel.changeFavState(
-                        movie,
-                        favorite
-                    )
-                })
+                    movieViewModel.changeFavState(movie, favorite)
+                }
+            )
+
         }
     }
 }

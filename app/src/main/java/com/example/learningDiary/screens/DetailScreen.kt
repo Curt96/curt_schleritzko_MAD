@@ -29,12 +29,7 @@ fun DetailScreen(navController: NavController,moviesViewModel: MovieViewModel, m
             MovieRow(
                 movie = selectedMovie,
                 favorite = selectedMovie.isFavorite,
-                onFavoriteChange = { favorite ->
-                    moviesViewModel.changeFavState(
-                        selectedMovie,
-                        favorite
-                    )
-                }
+                onFavoriteChange = { favorite -> moviesViewModel.changeFavState(selectedMovie, favorite) }
             )
         }
         Divider(startIndent = 5.dp, thickness = 1.dp, color = Color.DarkGray)
@@ -43,20 +38,5 @@ fun DetailScreen(navController: NavController,moviesViewModel: MovieViewModel, m
             HorizontalImageView(movie = selectedMovie)
         }
     }
-    }
-}
-
-@Composable
-fun MovieImage(images: List<String>) {
-    LazyRow(contentPadding = PaddingValues(all = 5.dp)) {
-        items(images) {
-            image -> Card() {
-            Image(
-                painter = rememberAsyncImagePainter(model = image),
-                contentDescription = "Movie Images",
-                contentScale = ContentScale.Crop,
-            )
-        }
-        }
     }
 }

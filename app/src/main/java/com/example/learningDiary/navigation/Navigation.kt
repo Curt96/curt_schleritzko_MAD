@@ -1,12 +1,14 @@
 package com.example.learningDiary.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.learningDiary.screens.AddMovieScreen
 import com.example.learningDiary.screens.DetailScreen
 import com.example.learningDiary.screens.FavoriteScreen
 import com.example.learningDiary.screens.HomeScreen
@@ -16,9 +18,9 @@ import com.example.learningDiary.viewModels.MovieViewModel
 fun Navigation(moviesViewModel: MovieViewModel){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "home") {
+    NavHost(navController = navController, startDestination = "home", ) {
         composable(route = "home") {
-            HomeScreen(navController)
+            HomeScreen(navController, moviesViewModel)
         }
 
         composable(
@@ -31,6 +33,9 @@ fun Navigation(moviesViewModel: MovieViewModel){
         }
         composable(route = "favorites"){
             FavoriteScreen(navController, moviesViewModel)
+        }
+        composable(route = "addMovie") {
+            AddMovieScreen(Modifier, moviesViewModel, navController)
         }
     }
 }
