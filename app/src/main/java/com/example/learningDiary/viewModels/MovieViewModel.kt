@@ -22,6 +22,9 @@ public class MovieViewModel:ViewModel() {
         }
     }
     fun getFavorites(): List<Movie> {
-       return favoritesList
+       return movieList.filter { movie: Movie -> movie.isFavorite }
+    }
+    fun findMovieById(movieId: String): Movie? {
+        return movieList.find { it.id == movieId }
     }
 }

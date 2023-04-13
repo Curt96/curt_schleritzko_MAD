@@ -10,9 +10,10 @@ import androidx.navigation.navArgument
 import com.example.learningDiary.screens.DetailScreen
 import com.example.learningDiary.screens.FavoriteScreen
 import com.example.learningDiary.screens.HomeScreen
+import com.example.learningDiary.viewModels.MovieViewModel
 
 @Composable
-fun Navigation(){
+fun Navigation(moviesViewModel: MovieViewModel){
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "home") {
@@ -26,10 +27,10 @@ fun Navigation(){
                 type = NavType.StringType
             })
         ) {backStackEntry ->
-            DetailScreen(navController, movieId = backStackEntry.arguments?.getString("movieId"))
+            DetailScreen(navController, moviesViewModel, movieId = backStackEntry.arguments?.getString("movieId"))
         }
         composable(route = "favorites"){
-            FavoriteScreen(navController)
+            FavoriteScreen(navController, moviesViewModel)
         }
     }
 }

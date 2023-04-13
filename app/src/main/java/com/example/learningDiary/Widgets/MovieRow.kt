@@ -3,6 +3,8 @@ package com.example.learningDiary.Widgets
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -16,13 +18,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.example.learningDiary.models.Movie
 import com.example.learningDiary.viewModels.MovieViewModel
 
 @Composable
-fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}) {
+fun MovieRow(
+    movie: Movie,
+    favorite: Boolean,
+    onFavoriteChange: (Boolean) -> Unit,
+    onItemClick: (String) -> Unit = {}
+) {
     var expandDetails by remember {
         mutableStateOf(false)
     }
@@ -100,4 +110,27 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}) {
                 }
             }
         }
+}
+@Composable
+fun HorizontalImageView(movie: Movie) {
+    LazyRow {
+        items(movie.images) { image ->
+            Card(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .size(240.dp),
+                elevation = 4.dp
+            ) {
+
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(image)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = "Movie poster",
+                    contentScale = ContentScale.Crop
+                )
+            }
+        }
+    }
 }
