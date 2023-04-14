@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -84,18 +85,28 @@ fun AddMovieScreen(modifier: Modifier = Modifier,
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     onValueChange = { title = it },
-                    label = { Text(text = stringResource(R.string.enter_movie_title)) },
-                    isError = false
+                    label = { Text(text = stringResource(R.string.enter_movie_title)) }
                 )
+                if (title == ""){
+                    Text(
+                        text = "Enter Movie Titel",
+                        color = Color.Red
+                    )
+                }
 
                 OutlinedTextField(
                     value = year,
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     onValueChange = { year = it },
-                    label = { Text(stringResource(R.string.enter_movie_year)) },
-                    isError = false
+                    label = { Text(stringResource(R.string.enter_movie_year)) }
                 )
+                if (year == ""){
+                    Text(
+                        text = "Enter Year",
+                        color = Color.Red
+                    )
+                }
 
                 Text(
                     modifier = Modifier.padding(top = 4.dp),
@@ -138,17 +149,27 @@ fun AddMovieScreen(modifier: Modifier = Modifier,
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     onValueChange = { director = it },
-                    label = { Text(stringResource(R.string.enter_director)) },
-                    isError = false
+                    label = { Text(stringResource(R.string.enter_director)) }
                 )
+                if (director == ""){
+                    Text(
+                        text = "Enter Director",
+                        color = Color.Red
+                    )
+                }
 
                 OutlinedTextField(
                     value = actors,
                     modifier = Modifier.fillMaxWidth(),
                     onValueChange = { actors = it },
                     label = { Text(stringResource(R.string.enter_actors)) },
-                    isError = false
                 )
+                if (actors == ""){
+                    Text(
+                        text = "Enter Actors",
+                        color = Color.Red
+                    )
+                }
 
                 OutlinedTextField(
                     value = plot,
@@ -162,9 +183,14 @@ fun AddMovieScreen(modifier: Modifier = Modifier,
                             textAlign = TextAlign.Start,
                             text = stringResource(R.string.enter_plot)
                         )
-                    },
-                    isError = false
+                    }
                 )
+                if (plot == ""){
+                    Text(
+                        text = "Enter Plot",
+                        color = Color.Red
+                    )
+                }
 
                 OutlinedTextField(
                     value = rating,
@@ -177,9 +203,15 @@ fun AddMovieScreen(modifier: Modifier = Modifier,
                             it
                         }
                     },
-                    label = { Text(stringResource(R.string.enter_rating)) },
-                    isError = false
+                    label = { Text(stringResource(R.string.enter_rating)) }
                 )
+                if (rating == ""){
+                    Text(
+                        text = "Enter Rating",
+                        color = Color.Red
+                    )
+                }
+
 
                 isEnabledSaveButton = moviesViewModel.isValidMovie(
                     title,
