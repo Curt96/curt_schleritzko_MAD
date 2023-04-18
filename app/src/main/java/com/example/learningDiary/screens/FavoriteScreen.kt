@@ -27,14 +27,13 @@ fun FavoriteScreen(navController: NavHostController, movieViewModel: MovieViewMo
                 style = MaterialTheme.typography.h5,
                 text = "No favorite Movies listed!"
             )
+        } else {
             MyList(
                 navController,
                 movieList = movieViewModel.getFavorites(),
                 onFavoriteMovie = { movie, favorite ->
                     movieViewModel.changeFavState(movie, favorite)
-                }
-            )
-
+                })
         }
     }
 }

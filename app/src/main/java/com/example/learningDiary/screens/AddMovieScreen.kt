@@ -196,19 +196,13 @@ fun AddMovieScreen(modifier: Modifier = Modifier,
                     value = rating,
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
-                    onValueChange = {
-                        rating = if (it.startsWith("0")) {
-                            ""
-                        } else {
-                            it
-                        }
+                    onValueChange = {rating = it
                     },
                     label = { Text(stringResource(R.string.enter_rating)) }
                 )
-                if (rating == ""){
-                    Text(
-                        text = "Enter Rating",
-                        color = Color.Red
+                if (!isRatingValid(rating)) {
+                    Text(text = "Enter valid Rating between 0 - 10!",
+                    color = Color.Red
                     )
                 }
 
@@ -247,6 +241,21 @@ fun AddMovieScreen(modifier: Modifier = Modifier,
             }
         }
     }
+}
+
+fun isRatingValid(input: String): Boolean {
+    if (!isStringValid(input)) {
+        return false
+    }
+    return try {
+        val ratingNum = input.toFloat() //überprüft das eine Kommazahl ist
+        ratingNum > 0 && ratingNum <= 10 //überprüfung ob im vorgegeben Rahmen
+    } catch (ne: NumberFormatException) { //abfangen wenn Buchstaben eingeben werden
+        false
+    }
+}
+fun isStringValid(input: String): Boolean { //überprufung nicht leer
+    return input.isNotEmpty()
 }
 
 
