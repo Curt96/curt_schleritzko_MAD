@@ -9,7 +9,10 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,17 +32,12 @@ fun MovieRow(
     favorite: Boolean,
     onFavoriteChange: () -> Unit,
     onItemClick: (String) -> Unit = {},
-    onDeleteClick: (MovieEntity) -> Unit = {},
 ) {
     var expandDetails by remember {
         mutableStateOf(false)
     }
     var isFavorite by remember {
         mutableStateOf(favorite) }
-
-    var deleteState by remember {
-        mutableStateOf(false)
-    }
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -65,9 +63,8 @@ fun MovieRow(
                             .height(25.dp)
                             .padding(2.dp)
                             .fillMaxWidth(),
-                        contentAlignment = Alignment.TopEnd,
+                        contentAlignment = Alignment.TopEnd
                     ) {
-                        Row {
                         IconButton(
                             onClick = {
                                 isFavorite = !isFavorite
@@ -84,17 +81,6 @@ fun MovieRow(
                                 },
                                 contentDescription = "Add to favorites"
                             )
-                        }
-                        IconButton(onClick = {
-                            deleteState = !deleteState
-                            onDeleteClick(movie)
-                        }) {
-                            Icon(
-                                tint = Color.Red,
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = "Delete Movie",
-                            )
-                        }
                         }
                     }
                 }

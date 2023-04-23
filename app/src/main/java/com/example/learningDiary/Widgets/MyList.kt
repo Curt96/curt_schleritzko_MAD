@@ -26,9 +26,8 @@ fun MyList(navController: NavController = rememberNavController(),
                 favorite = movie.isFavorite,
                 onFavoriteChange = { coroutineScope.launch {
                     favoriteScreenViewModel.updateFavorites(movie)
-                }
-                }
-            ) {
+                }}
+            ){
                 //Log.d("MyList", "item clicked $movieId")
                 // navigate to detailscreen
                 navController.navigate("detail/${movie.id}")
