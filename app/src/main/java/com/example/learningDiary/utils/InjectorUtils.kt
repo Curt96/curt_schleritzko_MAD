@@ -11,10 +11,6 @@ object InjectorUtils {
         return MovieRepository(MovieDatabase.getDatabase(context).movieDao())
     }
 
-    fun provideMovieViewModelFactory(context: Context): MovieViewModelFactory {
-        val repository = getMovieRepository(context)
-        return MovieViewModelFactory(repository)
-    }
     fun provideFavoriteScreenViewModelFactory(context: Context): FavoriteScreenViewModelFactory {
         return FavoriteScreenViewModelFactory(getMovieRepository(context))
     }

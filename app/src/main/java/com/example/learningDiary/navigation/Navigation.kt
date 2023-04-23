@@ -20,7 +20,6 @@ import com.example.learningDiary.viewModels.*
 
 @Composable
 fun Navigation(
-    moviesViewModel: MovieViewModel,
     favoriteScreenViewModel: FavoriteScreenViewModel,
     homeScreenViewModel: HomeScreenViewModel,
     addMovieScreenViewModel: AddMovieScreenViewModel)
@@ -37,7 +36,7 @@ fun Navigation(
         composable(
             route = "detail/{movieId}",
             arguments = listOf(navArgument("movieId"){
-                type = NavType.StringType
+                type = NavType.IntType
             })
         ) {backStackEntry ->
             backStackEntry.arguments?.getInt("movieId") ?.let {

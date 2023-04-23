@@ -20,7 +20,6 @@ import com.example.learningDiary.R
 import com.example.learningDiary.Widgets.SimpleAppBar
 import com.example.learningDiary.models.Genre
 import com.example.learningDiary.viewModels.AddMovieScreenViewModel
-import com.example.learningDiary.viewModels.MovieViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)

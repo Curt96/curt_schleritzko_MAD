@@ -13,7 +13,6 @@ import com.example.learningDiary.Widgets.MovieRow
 import com.example.learningDiary.Widgets.SimpleAppBar
 import com.example.learningDiary.viewModels.FavoriteScreenViewModel
 import com.example.learningDiary.viewModels.HomeScreenViewModel
-import com.example.learningDiary.viewModels.MovieViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -29,7 +28,7 @@ fun FavoriteScreen(navController: NavHostController, homeScreenViewModel: HomeSc
             text = "Favorites",
             fontSize = MaterialTheme.typography.h2.fontSize
         )
-        if (favoriteScreenViewModel.movies.toString() == "") {
+        if (favoriteState.isEmpty()) {
             Text(
                 modifier = Modifier.padding(15.dp),
                 style = MaterialTheme.typography.h5,

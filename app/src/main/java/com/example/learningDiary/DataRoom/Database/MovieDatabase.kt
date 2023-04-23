@@ -1,18 +1,18 @@
 package com.example.learningDiary.DataRoom.Database
 
 import android.content.Context
-import android.provider.CalendarContract.Instances
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.learningDiary.DataRoom.DAOs.MovieDAO
+import com.example.learningDiary.DataRoom.Entities.CallBackMovieDatabase
 import com.example.learningDiary.DataRoom.Entities.MovieEntity
 import com.example.learningDiary.utils.CustomConverter
 
 @Database(
     entities = [MovieEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false, //bei true kann man die Datenbank exportieren lassen
 )
 @TypeConverters(CustomConverter::class)
@@ -28,6 +28,7 @@ abstract class MovieDatabase : RoomDatabase() {
             return Instance?: synchronized(this) {
                 Room.databaseBuilder(context, MovieDatabase::class.java, "movie_db")
                     .fallbackToDestructiveMigration()
+                    .addCallback(CallBackMovieDatabase(context))
                     .build() //erzeugt Instanz
                     .also {
                         Instance = it

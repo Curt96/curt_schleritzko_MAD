@@ -2,8 +2,8 @@ package com.example.learningDiary.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learningDiary.DataRoom.Entities.Movie
 import com.example.learningDiary.DataRoom.Entities.MovieEntity
+import com.example.learningDiary.DataRoom.Entities.getMovies
 
 import com.example.learningDiary.DataRoom.Repositories.MovieRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +23,9 @@ class HomeScreenViewModel(private val movieRepository: MovieRepository): ViewMod
                 if (!collectedMovies.isNullOrEmpty()) {
                     _movieList.value = collectedMovies
                 }
+                //for (movie in getMovies()) {
+                //    movieRepository.add(movie)
+                //}
             }
         }
     }
@@ -31,9 +34,11 @@ class HomeScreenViewModel(private val movieRepository: MovieRepository): ViewMod
         movieEntity.isFavorite = !movieEntity.isFavorite
         movieRepository.update(movieEntity)
     }
-    suspend fun updateMovie(movieEntity: MovieEntity) {
-        movieRepository.update(movieEntity)
+    suspend fun deleteMovie(movieEntity: MovieEntity) {
+        movieRepository.delete(movieEntity)
     }
+
+
 
 
 

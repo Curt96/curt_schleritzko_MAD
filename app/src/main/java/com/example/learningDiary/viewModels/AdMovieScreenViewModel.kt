@@ -2,13 +2,9 @@ package com.example.learningDiary.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learningDiary.DataRoom.Entities.Movie
 import com.example.learningDiary.DataRoom.Entities.MovieEntity
 import com.example.learningDiary.DataRoom.Repositories.MovieRepository
 import com.example.learningDiary.models.Genre
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AddMovieScreenViewModel(private val movieRepository: MovieRepository): ViewModel() {

@@ -1,7 +1,6 @@
 package com.example.learningDiary.DataRoom.Repositories
 
 import com.example.learningDiary.DataRoom.DAOs.MovieDAO
-import com.example.learningDiary.DataRoom.Entities.Movie
 import com.example.learningDiary.DataRoom.Entities.MovieEntity
 import kotlinx.coroutines.flow.Flow
 

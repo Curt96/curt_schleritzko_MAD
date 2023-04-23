@@ -18,7 +18,6 @@ import com.example.learningDiary.viewModels.*
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var movieViewModel: MovieViewModel
         var favoriteScreenViewModel: FavoriteScreenViewModel
         var detailScreenViewModel: DetailScreenViewModel
         var homeScreenViewModel: HomeScreenViewModel
@@ -28,13 +27,11 @@ class MainActivity : ComponentActivity() {
 
                 val db = MovieDatabase.getDatabase(LocalContext.current)
                 val repository = MovieRepository(movieDAO = db.movieDao())
-                val factory =MovieViewModelFactory(repository)
-                val viewModel: MovieViewModel = viewModel(factory = factory)
 
                 val coroutineScope = rememberCoroutineScope()
 
 
-                movieViewModel = viewModel(factory = InjectorUtils.provideMovieViewModelFactory(LocalContext.current))
+
                 favoriteScreenViewModel = viewModel(factory = InjectorUtils.provideFavoriteScreenViewModelFactory(LocalContext.current))
                         //detailScreenViewModel = viewModel(factory = InjectorUtils.provideDetailScreenViewModelFactory(LocalContext.current))
                 homeScreenViewModel = viewModel(factory = InjectorUtils.provideHomeScreenViewModelFactory(
@@ -44,7 +41,7 @@ class MainActivity : ComponentActivity() {
 
 
                 Column {
-                    Navigation(viewModel, favoriteScreenViewModel = favoriteScreenViewModel,  homeScreenViewModel = homeScreenViewModel, addMovieScreenViewModel = addMovieScreenViewModel)
+                    Navigation(favoriteScreenViewModel = favoriteScreenViewModel,  homeScreenViewModel = homeScreenViewModel, addMovieScreenViewModel = addMovieScreenViewModel)
                 }
             }
         }
