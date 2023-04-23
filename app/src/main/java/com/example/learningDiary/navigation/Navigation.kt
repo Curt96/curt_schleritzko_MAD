@@ -3,6 +3,9 @@ package com.example.learningDiary.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode.Companion.Screen
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,15 +15,23 @@ import com.example.learningDiary.screens.AddMovieScreen
 import com.example.learningDiary.screens.DetailScreen
 import com.example.learningDiary.screens.FavoriteScreen
 import com.example.learningDiary.screens.HomeScreen
-import com.example.learningDiary.viewModels.MovieViewModel
+import com.example.learningDiary.utils.InjectorUtils
+import com.example.learningDiary.viewModels.*
 
 @Composable
-fun Navigation(moviesViewModel: MovieViewModel){
+fun Navigation(
+    moviesViewModel: MovieViewModel,
+    favoriteScreenViewModel: FavoriteScreenViewModel,
+    homeScreenViewModel: HomeScreenViewModel,
+    addMovieScreenViewModel: AddMovieScreenViewModel)
+    {
     val navController = rememberNavController()
+    var detailScreenViewModel: DetailScreenViewModel
 
     NavHost(navController = navController, startDestination = "home", ) {
         composable(route = "home") {
-            HomeScreen(navController, moviesViewModel)
+            HomeScreen(navController, homeScreenViewModel, favoriteScreenViewModel)
+            //detailScreenViewModel = viewModel(factory = InjectorUtils.provideDetailScreenViewModelFactory(LocalContext.current))
         }
 
         composable(
@@ -29,13 +40,20 @@ fun Navigation(moviesViewModel: MovieViewModel){
                 type = NavType.StringType
             })
         ) {backStackEntry ->
-            DetailScreen(navController, moviesViewModel, movieId = backStackEntry.arguments?.getString("movieId"))
+            backStackEntry.arguments?.getInt("movieId") ?.let {
+                DetailScreen(
+                    homeScreenViewModel = homeScreenViewModel,
+                    navController = navController,
+                    favoriteScreenViewModel = favoriteScreenViewModel,
+                    movieId = it
+                )
+            }
         }
         composable(route = "favorites"){
-            FavoriteScreen(navController, moviesViewModel)
+            FavoriteScreen(navController, homeScreenViewModel,favoriteScreenViewModel)
         }
         composable(route = "addMovie") {
-            AddMovieScreen(Modifier, moviesViewModel, navController)
+            AddMovieScreen(Modifier, addMovieScreenViewModel, navController)
         }
     }
 }

@@ -15,15 +15,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.learningDiary.DataRoom.Entities.MovieEntity
 import com.example.learningDiary.R
 import com.example.learningDiary.Widgets.SimpleAppBar
 import com.example.learningDiary.models.Genre
+import com.example.learningDiary.viewModels.AddMovieScreenViewModel
 import com.example.learningDiary.viewModels.MovieViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AddMovieScreen(modifier: Modifier = Modifier,
-                   moviesViewModel: MovieViewModel,
+                   addMovieScreenViewModel: AddMovieScreenViewModel,
                    navController: NavHostController
 ) {
     Column {
@@ -34,6 +37,8 @@ fun AddMovieScreen(modifier: Modifier = Modifier,
                 .fillMaxHeight()
                 .padding(15.dp)
         ) {
+            val coroutineScope = rememberCoroutineScope()
+
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
@@ -53,7 +58,7 @@ fun AddMovieScreen(modifier: Modifier = Modifier,
                 var genreItems by remember {
                     mutableStateOf(
                         genres.map { genre ->
-                            MovieViewModel.ListItemSelectable(
+                            AddMovieScreenViewModel.ListItemSelectable(
                                 title = genre,
                                 isSelected = false
                             )
@@ -207,7 +212,7 @@ fun AddMovieScreen(modifier: Modifier = Modifier,
                 }
 
 
-                isEnabledSaveButton = moviesViewModel.isValidMovie(
+                isEnabledSaveButton = addMovieScreenViewModel.isValidMovie(
                     title,
                     year,
                     genreItems.filter { x -> x.isSelected }.map { x -> x.title },
@@ -222,17 +227,18 @@ fun AddMovieScreen(modifier: Modifier = Modifier,
                 ) {
                     Button(
                         enabled = isEnabledSaveButton,
-                        onClick = {
-                            moviesViewModel.addNewMovie(
-                                title,
-                                year,
-                                genreItems.filter { x -> x.isSelected }.map { x -> x.title },
-                                director,
-                                actors,
-                                plot,
-                                listOf("https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"),
-                                rating.toFloatOrNull() ?: 0.0f
-                            )
+                        onClick = { coroutineScope.launch{
+                            addMovieScreenViewModel.addMovie(
+                                MovieEntity(
+                                title = title,
+                                year = year,
+                                genre = genreItems.filter { x -> x.isSelected }.map { it.title }.toString(),
+                                director = director,
+                                actors = actors,
+                                plot = plot,
+                                images = listOf("https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"),
+                                rating = rating.toFloatOrNull() ?: 0.0f
+                            )) }
                             navController.navigate("home")
                         }) {
                         Text(text = stringResource(R.string.add))

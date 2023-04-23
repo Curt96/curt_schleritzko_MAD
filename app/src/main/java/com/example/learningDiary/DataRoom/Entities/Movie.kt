@@ -1,8 +1,25 @@
-package com.example.learningDiary.models
+package com.example.learningDiary.DataRoom.Entities
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "movie")
+data class MovieEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val title: String = "",
+    val year: String = "",
+    val genre: String = "",
+    val director: String = "",
+    val actors: String = "",
+    val plot: String = "",
+    val rating: Float = 0.0f,
+    val images: List<String> = listOf(""),
+    var isFavorite: Boolean = false
+){ }
 
 class Movie(
     val id: String,

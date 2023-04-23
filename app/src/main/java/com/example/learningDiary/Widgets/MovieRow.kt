@@ -23,15 +23,20 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.example.learningDiary.models.Movie
-import com.example.learningDiary.viewModels.MovieViewModel
+import com.example.learningDiary.DataRoom.Entities.Movie
+import com.example.learningDiary.DataRoom.Entities.MovieEntity
+import com.example.learningDiary.viewModels.HomeScreenViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 @Composable
 fun MovieRow(
-    movie: Movie,
+    movie: MovieEntity,
     favorite: Boolean,
     onFavoriteChange: (Boolean) -> Unit,
-    onItemClick: (String) -> Unit = {}
+    onItemClick: (Int) -> Unit = {},
 ) {
     var expandDetails by remember {
         mutableStateOf(false)
@@ -64,13 +69,12 @@ fun MovieRow(
                         contentAlignment = Alignment.TopEnd
                     ) {
                         IconButton(
-                            onClick = {
-                                onFavoriteChange(favorite.not()) }
+                            onClick = { onFavoriteChange(movie.isFavorite) }
                         ) {
                             Icon(
                                 tint = MaterialTheme.colors.secondary,
                                 imageVector =
-                                if (favorite) {
+                                if (movie.isFavorite) {
                                     Icons.Default.Favorite
                                 } else {
                                     Icons.Default.FavoriteBorder
@@ -109,9 +113,9 @@ fun MovieRow(
         }
 }
 @Composable
-fun HorizontalImageView(movie: Movie) {
+fun HorizontalImageView(movieEntity: MovieEntity) {
     LazyRow {
-        items(movie.images) { image ->
+        items(movieEntity.images) { image ->
             Card(
                 modifier = Modifier
                     .padding(12.dp)

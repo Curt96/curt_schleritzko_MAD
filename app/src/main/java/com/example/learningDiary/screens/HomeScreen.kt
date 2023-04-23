@@ -11,11 +11,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.learningDiary.Widgets.SimpleAppBar
+import com.example.learningDiary.viewModels.FavoriteScreenViewModel
+import com.example.learningDiary.viewModels.HomeScreenViewModel
 import com.example.learningDiary.viewModels.MovieViewModel
 
 
 @Composable
-fun HomeScreen(navController: NavController, moviesViewModel: MovieViewModel = viewModel()) {
+fun HomeScreen(navController: NavController, homeScreenViewModel: HomeScreenViewModel, favoriteScreenViewModel: FavoriteScreenViewModel) {
     // A surface container using the 'background' color from the theme
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -28,22 +30,14 @@ fun HomeScreen(navController: NavController, moviesViewModel: MovieViewModel = v
                 style = MaterialTheme.typography.h6,
                 text= "Movie List"
             )
-            MyList(
-                navController,
-                movieList = moviesViewModel.movieList,
-                onFavoriteMovie = { movie, favorite ->
-                    moviesViewModel.changeFavState(
-                        movie,
-                        favorite
-                    )
+            MyList(navController = navController, favoriteScreenViewModel = favoriteScreenViewModel, homeScreenViewModel = homeScreenViewModel )
                 }
-            )
+            
         }
         //MyList()
         //Greeting()
         //WelcomeText(modifier = Modifier.padding(16.dp), text = "welcome to my app!")
     }
-}
 
 
 @Preview
